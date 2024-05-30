@@ -45,7 +45,10 @@ const AddedProject = ({ data }: any) => {
           </div>
         ))}
 
-      <button onClick={(e) => dispatch(clearAll())} className="py-5 px-7">
+      <button
+        onClick={(e) => dispatch(clearAll())}
+        className="py-3 px-7  rounded-lg bg-red-600 text-white"
+      >
         Clear All
       </button>
     </div>
