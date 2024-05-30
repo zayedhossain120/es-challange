@@ -101,25 +101,21 @@ const projectSlice = createSlice({
               title,
               hours,
               minutes,
-              seconds: 0, // Assuming seconds is always 0 for new items
+              seconds: 0,
               amount: itemAmount,
             },
           ],
         });
 
-        // Increment the total projects count
         state.totalProjects += 1;
 
-        // Increment the total items count (for the new item added)
         state.totalItems += 1;
       }
 
-      // Update grand total hours, minutes, and amount
       state.grandTotalHours += hours;
       state.grandTotalMinutes += minutes;
       state.grandTotalAmount += itemAmount;
 
-      // Adjust the grand total time if grandTotalMinutes >= 60
       if (state.grandTotalMinutes >= 60) {
         state.grandTotalHours += Math.floor(state.grandTotalMinutes / 60);
         state.grandTotalMinutes %= 60;
@@ -149,15 +145,12 @@ const projectSlice = createSlice({
         const itemMinutes = itemToDelete.minutes;
         const itemAmount = itemToDelete.amount;
 
-        // Remove the item from the project's items array
         project.items.splice(itemIndex, 1);
 
-        // Update totalHours, totalMinutes, and totalAmount
         project.totalHours -= itemHours;
         project.totalMinutes -= itemMinutes;
         project.totalAmount -= itemAmount;
 
-        // Adjust the time if totalMinutes < 0
         if (project.totalMinutes < 0) {
           const borrowHours = Math.ceil(Math.abs(project.totalMinutes) / 60);
           project.totalHours -= borrowHours;
@@ -180,9 +173,21 @@ const projectSlice = createSlice({
         state.totalItems -= 1;
       }
     },
+    clearAll(state) {
+      state.projects = [];
+      state.grandTotalHours = 0;
+      state.grandTotalMinutes = 0;
+      state.grandTotalAmount = 0;
+      state.totalProjects = 0;
+      state.totalItems = 0;
+    },
   },
 });
 
-export const { addProject, updateGrandTotalAmount, deleteProjectItem } =
-  projectSlice.actions;
+export const {
+  addProject,
+  updateGrandTotalAmount,
+  deleteProjectItem,
+  clearAll,
+} = projectSlice.actions;
 export default projectSlice.reducer;

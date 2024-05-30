@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteProjectItem } from "../store/slices/projectSlice";
+import { clearAll, deleteProjectItem } from "../store/slices/projectSlice";
 
 const AddedProject = ({ data }: any) => {
   const dispatch = useDispatch();
@@ -44,6 +44,10 @@ const AddedProject = ({ data }: any) => {
             ))}
           </div>
         ))}
+
+      <button onClick={(e) => dispatch(clearAll())} className="py-5 px-7">
+        Clear All
+      </button>
     </div>
   );
 };
