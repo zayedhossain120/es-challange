@@ -23,8 +23,9 @@ const AddProject = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // @ts-ignore
     dispatch(addProject(formData));
-    // Optionally reset the form
+
     setFormData({
       projectName: "",
       title: "",
